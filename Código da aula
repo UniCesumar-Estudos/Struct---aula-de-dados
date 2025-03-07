@@ -37,7 +37,7 @@ void excluirAluno(struct Aluno* aluno) {
 // Função para buscar aluno por nome
 void buscarAlunoPorNome(struct Aluno listaAlunos[], int tamanho, char nome[]) {
     int encontrado = 0;
-    
+
     for (int i = 0; i < tamanho; i++) {
         if (strcmp(listaAlunos[i].nome, nome) == 0 && listaAlunos[i].matricula != 0) {
             printf("\nAluno encontrado:\n");
@@ -46,27 +46,28 @@ void buscarAlunoPorNome(struct Aluno listaAlunos[], int tamanho, char nome[]) {
             break;  // Sai do loop após encontrar o aluno
         }
     }
-    
+
     if (!encontrado) {
         printf("Aluno com nome '%s' não encontrado.\n", nome);
     }
 }
 
 int main() {
-	// Configura para o uso de localidade 
+	// Configura para o uso de localidade
 	setlocale(LC_ALL, "Portuguese_Brazil.1252");
-	
+
     // Criando uma lista de alunos com capacidade para 3
-    struct Aluno listaAlunos[3];
+    struct Aluno listaAlunos[5];
     int contador = 0;
 
     // Inserindo alunos (agora os nomes são constantes)
-    listaAlunos[contador++] = criarAluno(101, "João Silva", 20);
-    listaAlunos[contador++] = criarAluno(102, "Maria Oliveira", 22);
-    listaAlunos[contador++] = criarAluno(103, "Carlos Santos", 21);
-
+    listaAlunos[contador++] = criarAluno(101, "teste teste", 33);
+    listaAlunos[contador++] = criarAluno(102, "Paulo", 61);
+    listaAlunos[contador++] = criarAluno(103, "Maria Paula", 28);
+    listaAlunos[contador++] = criarAluno(104, "Maria Sawamura", 25);
+    listaAlunos[contador++] = criarAluno(105, "Henrique", 24);
     // Exibir todos os alunos cadastrados
-    printf("Alunos cadastrados:\n");
+    printf("Alunos cadastrados :c :\n");
     for (int i = 0; i < contador; i++) {
         exibirAluno(listaAlunos[i]);
     }
@@ -81,4 +82,3 @@ int main() {
 
     return 0;
 }
-
