@@ -1,0 +1,84 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <locale.h>
+
+// Definição da estrutura Aluno
+struct Aluno {
+    int matricula;
+    char nome[50];
+    int idade;
+};
+
+// Função para criar um novo aluno (nome como const char*)
+struct Aluno criarAluno(int matricula, const char* nome, int idade) {
+    struct Aluno novoAluno;
+    novoAluno.matricula = matricula;
+    strcpy(novoAluno.nome, nome);  // Copia o nome para o campo da struct
+    novoAluno.idade = idade;
+    return novoAluno;
+}
+
+// Função para exibir informações de um aluno
+void exibirAluno(struct Aluno aluno) {
+    printf("Matrícula: %d\n", aluno.matricula);
+    printf("Nome: %s\n", aluno.nome);
+    printf("Idade: %d\n\n", aluno.idade);
+}
+
+// Função para excluir um aluno (simplesmente indica que foi excluído)
+void excluirAluno(struct Aluno* aluno) {
+    aluno->matricula = 0;
+    strcpy(aluno->nome, "");
+    aluno->idade = 0;
+    printf("Aluno excluído com sucesso!\n");
+}
+
+// Função para buscar aluno por nome
+void buscarAlunoPorNome(struct Aluno listaAlunos[], int tamanho, char nome[]) {
+    int encontrado = 0;
+    
+    for (int i = 0; i < tamanho; i++) {
+        if (strcmp(listaAlunos[i].nome, nome) == 0 && listaAlunos[i].matricula != 0) {
+            printf("\nAluno encontrado:\n");
+            exibirAluno(listaAlunos[i]);
+            encontrado = 1;
+            break;  // Sai do loop após encontrar o aluno
+        }
+    }
+    
+    if (!encontrado) {
+        printf("Aluno com nome '%s' não encontrado.\n", nome);
+    }
+}
+
+int main() {
+	// Configura para o uso de localidade 
+	setlocale(LC_ALL, "Portuguese_Brazil.1252");
+	
+    // Criando uma lista de alunos com capacidade para 3
+    struct Aluno listaAlunos[3];
+    int contador = 0;
+
+    // Inserindo alunos (agora os nomes são constantes)
+    listaAlunos[contador++] = criarAluno(101, "João Silva", 20);
+    listaAlunos[contador++] = criarAluno(102, "Maria Oliveira", 22);
+    listaAlunos[contador++] = criarAluno(103, "Carlos Santos", 21);
+
+    // Exibir todos os alunos cadastrados
+    printf("Alunos cadastrados:\n");
+    for (int i = 0; i < contador; i++) {
+        exibirAluno(listaAlunos[i]);
+    }
+
+    // Buscar aluno por nome
+    char nomeBusca[50];
+    printf("Digite o nome do aluno que deseja buscar: ");
+    fgets(nomeBusca, 50, stdin);
+    nomeBusca[strcspn(nomeBusca, "\n")] = '\0';  // Remove o '\n' gerado pelo fgets
+
+    buscarAlunoPorNome(listaAlunos, contador, nomeBusca);
+
+    return 0;
+}
+
